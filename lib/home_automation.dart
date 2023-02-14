@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './screens/home_screen.dart';
+import 'screens/home_screen.dart';
 export './observer/global_bloc_observer.dart';
 export 'package:flutter/cupertino.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
