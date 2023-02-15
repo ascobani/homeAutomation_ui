@@ -183,7 +183,41 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
-
+                      GestureDetector(
+                        child: AnimatedContainer(
+                          decoration: BoxDecoration(
+                            color: state.data?.relay1 != false
+                                ? Colors.black
+                                : Colors.grey.shade300,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          height: 200,
+                          width: 150,
+                          duration: Duration(seconds: 1),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 15),
+                                  child: Icon(
+                                    Icons.light_outlined,
+                                    color: state.data?.relay1 != false
+                                        ? Colors.white
+                                        : Colors.black,
+                                    size: 70,
+                                  ),
+                                ),
+                                customCupertinoSwitch(
+                                    'Relay1',
+                                    state.data?.relay1 ?? false,
+                                    (p0) => context
+                                        .read<NodeMCUHomeAutomationBloc>()
+                                        .add(SendDataToNodeMCU('toggleCh1'))),
+                              ]),
+                        ),
+                      )
                       // Text(
                       //   state.data?.temperature != null
                       //       ? 'Temperature: ${state.data!.temperature}'
@@ -277,13 +311,22 @@ class _HomeScreenState extends State<HomeScreen> {
 Widget customCupertinoSwitch(
     String title, bool value, Function(bool) onChanged) {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      Text(title),
+      SizedBox(
+          child: Text(
+        title,
+        maxLines: 2,
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      )),
       const SizedBox(width: 20),
-      CupertinoSwitch(
-        value: value,
-        onChanged: onChanged,
+      RotatedBox(
+        quarterTurns: 1,
+        child: CupertinoSwitch(
+          value: value,
+          onChanged: onChanged,
+        ),
       ),
     ],
   );
