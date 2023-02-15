@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import './screens/home_screen.dart';
 import 'screens/home_screen.dart';
+import './bloc/nodemcu_home_automation_bloc.dart';
 export './observer/global_bloc_observer.dart';
 export 'package:flutter/cupertino.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,12 +15,15 @@ class HomeAutomation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'NodeMCU Home Automation Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return BlocProvider(
+      create: (context) => NodeMCUHomeAutomationBloc(),
+      child: MaterialApp(
+        title: 'NodeMCU Home Automation Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const HomeScreen(title: 'NodeMCU Home Automation Demo'),
       ),
-      home: const HomeScreen(title: 'NodeMCU Home Automation Demo'),
     );
   }
 }
